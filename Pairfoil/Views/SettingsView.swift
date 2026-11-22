@@ -128,6 +128,7 @@ private struct PhoneFilesSection: View {
 enum PairfoilCredits {
     static let author = "Subhash"
     static let authorURL = URL(string: "https://github.com/subhashhhhhh")!
+    static let originalURL = URL(string: "https://github.com/subhashhhhhh/Tether")!
     static let sourceURL = URL(string: "https://github.com/harshmandan/pairfoil")!
     static let issuesURL = URL(string: "https://github.com/harshmandan/pairfoil/issues")!
 
@@ -140,10 +141,12 @@ enum PairfoilCredits {
 
     /// Credits for the standard About panel.
     static var aboutPanelCredits: NSAttributedString {
-        let text = NSMutableAttributedString(
-            string: "Based on Tether by \(author)\n",
-            attributes: [.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize, weight: .medium)]
-        )
+        let small = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+        let text = NSMutableAttributedString(string: "Based on ", attributes: [.font: small])
+        text.append(NSAttributedString(string: "Tether", attributes: [.link: originalURL, .font: small]))
+        text.append(NSAttributedString(string: " by ", attributes: [.font: small]))
+        text.append(NSAttributedString(string: author, attributes: [.link: authorURL, .font: small]))
+        text.append(NSAttributedString(string: ". Thank you.\n", attributes: [.font: small]))
         text.append(NSAttributedString(
             string: "github.com/harshmandan/pairfoil",
             attributes: [.link: sourceURL, .font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)]
@@ -193,8 +196,8 @@ struct AboutSettings: View {
             }
 
             Section {
-                LabeledContent("Based on Tether by") {
-                    Link(PairfoilCredits.author, destination: PairfoilCredits.authorURL)
+                LabeledContent("Based on") {
+                    Link("Tether by \(PairfoilCredits.author)", destination: PairfoilCredits.originalURL)
                 }
                 LabeledContent("Source code") {
                     Link("github.com/harshmandan/pairfoil", destination: PairfoilCredits.sourceURL)

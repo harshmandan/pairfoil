@@ -17,6 +17,10 @@
 </p>
 
 <p align="center">
+  Based on <a href="https://github.com/subhashhhhhh/Tether"><strong>Tether</strong></a> by <a href="https://github.com/subhashhhhhh">Subhash</a>.
+</p>
+
+<p align="center">
   <img src="docs/images/hero.jpg" alt="Pairfoil's main window and menu bar popover on a Mac desktop" />
 </p>
 
@@ -26,17 +30,25 @@ Your phone notifications show on the Mac, and you can reply to them. Your text m
 
 Pairfoil uses only Swift and SwiftUI. It does not use Qt, Electron or third-party libraries.
 
-Pairfoil is a fork of [Tether](https://github.com/subhashhhhhh/Tether) by Subhash.
+## Why this fork
+
+Pairfoil is a fork of [Tether](https://github.com/subhashhhhhh/Tether) by [Subhash](https://github.com/subhashhhhhh). Tether did the hard part: a native KDE Connect client for the Mac. Thank you, Subhash.
+
+Pairfoil started as bug fixes for Tether and grew into a redesign. That is more change than a project can review at once, so it lives here for now. The changes are offered back to Tether as pull requests.
+
+| Area | What Pairfoil changes |
+| --- | --- |
+| Design | A sidebar with each phone's sections, notifications grouped by app, and floating bars in Messages |
+| Connection | Reconnects sooner after a drop, a Wi-Fi change or sleep. Works over IPv6 as well as IPv4 |
+| Messages | Texts load in the background, show photos and files, and stay separate for each phone |
+| Files | Transfers use the current TLS of macOS. Files of unknown size and cancelled transfers work. Received files are quarantined |
+| Permissions | One page shows what macOS allows and what is off, with a button that turns it on |
+| Reliability | Fixes for crashes, a freeze, and drives left mounted after a force quit |
+| Performance | Fewer wakeups, less memory and a smaller app |
 
 ## Download
 
-We recommend [Homebrew](https://brew.sh). Homebrew also prevents the "can't be opened" warning (see below).
-
-```bash
-brew install --cask harshmandan/pairfoil/pairfoil
-```
-
-You can also download Pairfoil from the **[Releases page](https://github.com/harshmandan/pairfoil/releases/latest)**. There are two disk images. Use the disk image for your Mac:
+Download Pairfoil from the **[Releases page](https://github.com/harshmandan/pairfoil/releases/latest)**. There are two disk images. Use the disk image for your Mac:
 
 | Your Mac | Download |
 | --- | --- |
@@ -128,7 +140,7 @@ We measured these values in October 2026 on an Apple Silicon Mac. For Tether, th
 
 ## Install and pair
 
-1. Install Pairfoil with Homebrew. Or open the disk image and move **Pairfoil** into **Applications**.
+1. Open the disk image and move **Pairfoil** into **Applications**.
 2. Open Pairfoil. Pairfoil shows in the menu bar.
 3. On your phone, open **KDE Connect** and select your Mac in the device list.
 4. On the Mac, click **Pair**.
@@ -139,7 +151,7 @@ The first time Pairfoil shows your phone as a drive, KDE Connect on the phone ca
 
 ### "Pairfoil can't be opened"
 
-Apple did not notarize Pairfoil, because notarization needs a paid developer account. Thus macOS blocks a downloaded copy of Pairfoil the first time. This does not occur when you install with Homebrew. To open Pairfoil:
+Apple did not notarize Pairfoil, because notarization needs a paid developer account. Thus macOS blocks a downloaded copy of Pairfoil the first time. To open Pairfoil:
 
 1. Open Pairfoil, then close the warning.
 2. Open **System Settings → Privacy & Security**.
@@ -157,7 +169,7 @@ You need **Xcode 26** or later, because the project uses the default main-actor 
 
 ```bash
 git clone https://github.com/harshmandan/pairfoil.git
-cd Pairfoil
+cd pairfoil
 
 # Run the tests
 xcodebuild test -project Pairfoil.xcodeproj -scheme Pairfoil -destination "platform=macOS"
@@ -181,6 +193,6 @@ scripts/release.sh
 
 ## License
 
-Pairfoil uses the GPL-2.0 license, as KDE Connect does. See [LICENSE](LICENSE). Pairfoil includes mediaremote-adapter by Jonas van den Berg, with the BSD 3-Clause License ([Vendor/MediaRemoteAdapter/LICENSE](Vendor/MediaRemoteAdapter/LICENSE)).
+Pairfoil uses the GPL-2.0 license, as Tether and KDE Connect do. See [LICENSE](LICENSE). Pairfoil is based on [Tether](https://github.com/subhashhhhhh/Tether) by Subhash. Pairfoil includes mediaremote-adapter by Jonas van den Berg, with the BSD 3-Clause License ([Vendor/MediaRemoteAdapter/LICENSE](Vendor/MediaRemoteAdapter/LICENSE)).
 
 Pairfoil is an independent project. It is not part of KDE.

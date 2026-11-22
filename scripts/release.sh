@@ -28,7 +28,6 @@ MIN_MACOS=$(xcodebuild -project Pairfoil.xcodeproj -target Pairfoil -configurati
 [[ -n "$VERSION" ]] || { echo "Could not read MARKETING_VERSION" >&2; exit 1; }
 
 IDENTITY="Pairfoil Self-Signed"
-TAP_REPO="harshmandan/homebrew-pairfoil"
 security find-identity -p codesigning | grep -q "\"$IDENTITY\"" \
   || { echo "The \"$IDENTITY\" signing identity isn't in the keychain (see docs/signing.md)" >&2; exit 1; }
 
@@ -102,15 +101,13 @@ if [[ "${1:-}" == "--publish" ]]; then
     # The app shows the notes above this marker and drops the rest.
     print -- "\n<!-- pairfoil:install -->\n\n---\n"
     print -- "### ⬇️ Install\n"
-    print -- "**Homebrew** (recommended; no Gatekeeper prompt):"
-    print -- '```bash\nbrew install --cask harshmandan/pairfoil/pairfoil\n```\n'
-    print -- "**Or download the disk image for your Mac:**"
+    print -- "**Download the disk image for your Mac:**"
     print -- "- Apple Silicon (M1 and later): \`Pairfoil-$VERSION-AppleSilicon.dmg\`"
     print -- "- Intel: \`Pairfoil-$VERSION-Intel.dmg\`\n"
     print -- "Not sure which you have? Apple menu → **About This Mac** → **Chip** (Apple Silicon) or **Processor** (Intel). Pairfoil needs macOS 15 Sequoia or later.\n"
     print -- "Pairfoil is open source and isn't notarized by Apple, so the first time you open a downloaded copy macOS blocks it. Open **System Settings → Privacy & Security**, scroll to **Security** and click **Open Anyway**, or run:"
     print -- '```bash\nxattr -cr /Applications/Pairfoil.app\n```\n'
-    print -- "Already on Pairfoil 1.5.1 or later? It updates itself from **Pairfoil › Check for Updates…**\n"
+    print -- "Already have Pairfoil? It updates itself from **Pairfoil › Check for Updates…**\n"
     print -- "Checksums are in \`SHA256SUMS-$VERSION.txt\`."
   } > "$body"
 
@@ -144,19 +141,4 @@ PY
   git -C "$ROOT" push -q
   echo "    updates/latest.json → $VERSION"
 
-  echo "\n==> Updating the Homebrew cask"
-  sha_arm=$(shasum -a 256 "$DIST/Pairfoil-$VERSION-AppleSilicon.dmg" | cut -d' ' -f1)
-  sha_intel=$(shasum -a 256 "$DIST/Pairfoil-$VERSION-Intel.dmg" | cut -d' ' -f1)
-  tap="$BUILD/tap"
-  gh repo clone "$TAP_REPO" "$tap" -- --quiet --depth 1
-  sed -E -i '' \
-    -e "s/^  version \".*\"/  version \"$VERSION\"/" \
-    -e "s/^  sha256 arm: +\"[0-9a-f]*\",/  sha256 arm:   \"$sha_arm\",/" \
-    -e "s/^         intel: \"[0-9a-f]*\"/         intel: \"$sha_intel\"/" \
-    "$tap/Casks/pairfoil.rb"
-  grep -q "$sha_arm" "$tap/Casks/pairfoil.rb" && grep -q "$sha_intel" "$tap/Casks/pairfoil.rb" \
-    || { echo "Couldn't update $tap/Casks/pairfoil.rb" >&2; exit 1; }
-  git -C "$tap" commit -qam "Pairfoil $VERSION"
-  git -C "$tap" push -q
-  echo "    $TAP_REPO → $VERSION"
 fi

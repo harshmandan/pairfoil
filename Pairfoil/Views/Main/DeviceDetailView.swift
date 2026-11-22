@@ -240,11 +240,10 @@ struct OnboardingView: View {
     private var content: some View {
         VStack(spacing: 24) {
             VStack(spacing: 10) {
-                Image("PairfoilLogo")
+                // The app icon carries its own shape and shadow.
+                Image(nsImage: NSApp.applicationIconImage)
                     .resizable()
-                    .frame(width: 72, height: 72)
-                    .clipShape(.rect(cornerRadius: 19, style: .continuous))
-                    .shadow(color: .black.opacity(0.15), radius: 6, y: 3)
+                    .frame(width: 88, height: 88)
                     .accessibilityHidden(true)
                 Text("Connect Your Android Phone")
                     .font(.largeTitle.bold())

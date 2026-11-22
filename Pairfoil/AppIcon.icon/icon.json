@@ -1,0 +1,144 @@
+{
+  "features" : [
+    "refractivity"
+  ],
+  "fill" : {
+    "linear-gradient" : [
+      "display-p3:0.39683,0.82956,0.63712,1.00000",
+      "display-p3:0.35470,0.82956,0.39735,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 1
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0
+      }
+    }
+  },
+  "groups" : [
+    {
+      "blur-material" : 0,
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "solid" : "display-p3:0.76089,0.77200,0.77696,0.22807"
+          },
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "glass-phone.svg",
+          "name" : "glass-phone",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -37,
+              69
+            ]
+          }
+        }
+      ],
+      "name" : "glass phone",
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          -19,
+          -13
+        ]
+      },
+      "refractivity" : {
+        "depth" : 0,
+        "enabled" : true,
+        "strength" : 0.5
+      },
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 0
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 1
+      }
+    },
+    {
+      "layers" : [
+        {
+          "hidden" : true,
+          "image-name" : "android-head_3D.svg",
+          "name" : "android-head_3D",
+          "position" : {
+            "scale" : 0.42,
+            "translation-in-points" : [
+              -56,
+              -10
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "screen-ui.svg",
+          "name" : "screen-ui",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              55,
+              0
+            ]
+          }
+        },
+        {
+          "glass" : false,
+          "hidden" : true,
+          "image-name" : "wallpaper-screen.png",
+          "name" : "wallpaper",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              55,
+              0
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : "none",
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "phone-body.svg",
+          "name" : "phone-body",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              55,
+              0
+            ]
+          }
+        }
+      ],
+      "name" : "phone",
+      "position" : {
+        "scale" : 1,
+        "translation-in-points" : [
+          -19,
+          -13
+        ]
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}

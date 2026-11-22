@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Pairfoil/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" width="112" height="112" alt="Pairfoil app icon" />
+  <img src="docs/images/icon.png" width="112" height="112" alt="Pairfoil app icon" />
 </p>
 
 <h1 align="center">Pairfoil</h1>

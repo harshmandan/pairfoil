@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/hero.png" alt="Pairfoil's window, menu bar popover and badged app icon" />
+  <img src="docs/images/overview.png" alt="Pairfoil's window, menu bar popover and badged app icon" />
 </p>
 
 Pairfoil is a native macOS app for **KDE Connect**, the free Android app. Pair your phone once, and it shows in the menu bar whenever it's near your Mac. It's written in Swift and SwiftUI, with no Qt, Electron or third-party libraries.

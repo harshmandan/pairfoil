@@ -63,6 +63,15 @@ final class Permissions {
         })
     }
 
+    #if DEBUG
+    /// Fixed statuses for screenshots.
+    func showForDemo(notifications: Status, accessibility: Status, localNetwork: Status) {
+        self.notifications = notifications
+        self.accessibility = accessibility
+        self.localNetwork = localNetwork
+    }
+    #endif
+
     func refresh() {
         refreshAccessibility()
         refreshNotifications()

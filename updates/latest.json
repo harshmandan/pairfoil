@@ -1,17 +1,17 @@
 {
-  "version": "1.9.1",
-  "tag": "v1.9.1",
-  "notes": "### 📡 Finds your phone faster\n- Pairfoil now also finds your phone through Bonjour, which works on office and campus Wi-Fi that blocks KDE Connect's usual broadcasts. When your phone drops off Wi-Fi and comes back, it reconnects on its own within seconds instead of waiting up to 45. By @zzjjaayy (#7)\n- On Macs with corporate security software, discovery could freeze at launch, so a phone that dropped off Wi-Fi was never found again until Pairfoil restarted. Fixed by @zzjjaayy (#6)\n- macOS may ask once whether Pairfoil can find devices on your local network. Allow it so Bonjour discovery works.\n\n### 📁 Phone drive\n- Fixed \"server not responding\" prompts asking you to disconnect when your phone went out of range or to sleep while its drive was open.\n\n### 🔒 Pairing\n- Accepting a pairing request now only ever pairs the device you were shown, even if another request arrives while the prompt is open. By @youp211 (#9)\n\nThank you @zzjjaayy and @youp211!",
+  "version": "1.0",
+  "tag": "v1.0",
+  "notes": "The first release of Pairfoil, a fork of [Tether](https://github.com/subhashhhhhh/Tether) by [Subhash](https://github.com/subhashhhhhh). Thank you, Subhash, for building Tether. These changes are also offered back to it as pull requests.\n\n### ✨ What's new compared with Tether 1.9.1\n- **Redesign:** a sidebar with each phone's sections, notifications grouped by app, and floating bars in Messages.\n- **Menu bar and Dock:** a phone icon in the menu bar shows how many notifications and unread texts are waiting, and the Dock icon has a badge while the window is open.\n- **Permissions:** one page in Settings, and on first launch, shows what macOS allows and turns each permission on.\n- **Messages:** texts load in the background, show photos and files, and stay separate for each phone.\n- **Files:** transfers use Network.framework's TLS, files of unknown size arrive, transfers can be cancelled both ways, and received files are quarantined.\n- **Connection:** reconnects sooner after a drop or sleep, and works over IPv6.\n- **Fixes:** two crashes when stopping a transfer, a freeze when a phone connects, and phone drives left mounted after a force quit.\n- **Also:** the phone's music in macOS Now Playing, a mouse-like remote pointer with inertial scrolling, and the last 3 copies from your phone.\n\n### ↪︎ Coming from Tether\nPairfoil is a separate app. On its first launch it copies Tether's settings, paired phones and identity, so your phone stays paired. macOS asks again for Notifications, Local Network and Accessibility.",
   "archives": {
     "AppleSilicon": {
-      "name": "Pairfoil-1.9.1-AppleSilicon.zip",
-      "size": 2450029,
-      "sha256": "37bc420be0c78b9f1cd4c087797eea9a1ef98b9c379280e45e967909ef90dac8"
+      "name": "Pairfoil-1.0-AppleSilicon.zip",
+      "size": 3385177,
+      "sha256": "8eb638a1c2545c2e2fed5235a5430af2e210e7f23e7ae7b89a236a642ba47441"
     },
     "Intel": {
-      "name": "Pairfoil-1.9.1-Intel.zip",
-      "size": 2588667,
-      "sha256": "c7e26f2804ccd9ad9f84befc774df3f63fcdd4e8f3366a895a4f9c61b3b3cf2c"
+      "name": "Pairfoil-1.0-Intel.zip",
+      "size": 3490848,
+      "sha256": "54b38cca952b8a75feb36bc998e9b620eb47e8f46a2461785ccf41c639535720"
     }
   }
 }

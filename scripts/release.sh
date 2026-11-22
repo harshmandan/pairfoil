@@ -28,6 +28,8 @@ MIN_MACOS=$(xcodebuild -project Pairfoil.xcodeproj -target Pairfoil -configurati
 [[ -n "$VERSION" ]] || { echo "Could not read MARKETING_VERSION" >&2; exit 1; }
 
 IDENTITY="Pairfoil Self-Signed"
+# Named outright: gh otherwise picks a remote, and `origin` is Tether.
+REPO="harshmandan/pairfoil"
 security find-identity -p codesigning | grep -q "\"$IDENTITY\"" \
   || { echo "The \"$IDENTITY\" signing identity isn't in the keychain (see docs/signing.md)" >&2; exit 1; }
 
@@ -112,7 +114,7 @@ if [[ "${1:-}" == "--publish" ]]; then
   } > "$body"
 
   echo "\n==> Publishing v$VERSION"
-  gh release create "v$VERSION" \
+  gh release create "v$VERSION" --repo "$REPO" \
     "${assets[@]/#/$DIST/}" \
     "$DIST/SHA256SUMS-$VERSION.txt" \
     --target main --title "Pairfoil $VERSION" --notes-file "$body"

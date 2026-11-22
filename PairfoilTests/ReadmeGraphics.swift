@@ -39,8 +39,8 @@ import ScreenCaptureKit
             finder: ProcessInfo.processInfo.environment["PAIRFOIL_README_FINDER"].flatMap { NSImage(contentsOfFile: $0) }
         )
 
-        try write(Hero(shots: shots), size: CGSize(width: 1600, height: 900), to: dir.appendingPathComponent("hero.jpg"))
-        try write(Features(shots: shots), size: CGSize(width: 1600, height: 2440), to: dir.appendingPathComponent("features.jpg"))
+        try write(Hero(shots: shots), size: CGSize(width: 1600, height: 1000), to: dir.appendingPathComponent("hero.png"))
+        try write(Features(shots: shots), size: CGSize(width: 1600, height: 2440), to: dir.appendingPathComponent("features.png"))
     }
 
     // MARK: - Capturing
@@ -100,16 +100,19 @@ import ScreenCaptureKit
 
     private struct CaptureFailed: Error {}
 
+    /// A PNG with its corners rounded off, so it sits on the README's page
+    /// as a card in light and dark mode.
     private func write<V: View>(_ view: V, size: CGSize, to url: URL) throws {
         let renderer = ImageRenderer(content: view.frame(width: size.width, height: size.height)
+            .clipShape(.rect(cornerRadius: 36, style: .continuous))
             .environment(\.colorScheme, .light))
         renderer.scale = 2
-        guard let image = renderer.nsImage, let tiff = image.tiffRepresentation,
-              let rep = NSBitmapImageRep(data: tiff),
-              let jpeg = rep.representation(using: .jpeg, properties: [.compressionFactor: 0.88]) else {
+        renderer.isOpaque = false
+        guard let image = renderer.cgImage,
+              let png = NSBitmapImageRep(cgImage: image).representation(using: .png, properties: [:]) else {
             throw CaptureFailed()
         }
-        try jpeg.write(to: url)
+        try png.write(to: url)
     }
 }
 
@@ -214,59 +217,40 @@ private struct Hero: View {
     let shots: Shots
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Palette.page
-
-            // The menu bar, with the phone showing what's waiting.
-            HStack(spacing: 22) {
-                Image(systemName: "apple.logo").font(.system(size: 16, weight: .medium))
-                Text("Pairfoil").font(.system(size: 14, weight: .bold))
-                ForEach(["Edit", "View", "Window", "Help"], id: \.self) { Text($0).font(.system(size: 14)) }
-                Spacer()
-                MenuBarPhone(count: 3, height: 17)
-                Image(systemName: "wifi").font(.system(size: 14, weight: .medium))
-                Image(systemName: "battery.75percent").font(.system(size: 16))
-                Text("Sun 22 Nov  4:20 PM").font(.system(size: 14))
-            }
-            .foregroundStyle(Palette.ink)
-            .padding(.horizontal, 22)
-            .frame(height: 32)
-            .background(.white.opacity(0.85))
-
-            VStack(alignment: .leading, spacing: 18) {
-                Text("Your Android phone.\nOn your Mac.")
-                    .font(.system(size: 64, weight: .bold))
+        VStack(spacing: 0) {
+            VStack(spacing: 14) {
+                Text("Your Android phone. On your Mac.")
+                    .font(.system(size: 60, weight: .bold))
                     .tracking(-1.2)
                     .foregroundStyle(Palette.ink)
                 Text("Notifications you can reply to, texts, files and the clipboard, in a native Mac app.")
                     .font(.system(size: 24))
                     .foregroundStyle(Palette.secondary)
-                    .frame(width: 520, alignment: .leading)
             }
-            .padding(.leading, 80)
-            .padding(.top, 120)
+            .multilineTextAlignment(.center)
+            .padding(.top, 72)
 
-            Screenshot(image: shots.overview, radius: 14)
-                .frame(width: 900)
-                .offset(x: 640, y: 300)
-
-            Screenshot(image: shots.popover, radius: 16)
-                .frame(width: 300)
-                .offset(x: 1230, y: 44)
-
-            // The Dock, with Pairfoil's badge.
-            HStack(spacing: 14) {
+            // The window in the middle, with the menu bar popover and the
+            // badged app icon resting on its edges.
+            ZStack {
+                Screenshot(image: shots.overview, radius: 14)
+                    .frame(width: 1000)
+                    .offset(y: 40)
+                Screenshot(image: shots.popover, radius: 16)
+                    .frame(width: 290)
+                    .offset(x: 540, y: 10)
                 ZStack(alignment: .topTrailing) {
-                    AppIcon(size: 72)
-                    Badge(text: "7", size: 26).offset(x: 6, y: -4)
+                    AppIcon(size: 124)
+                    Badge(text: "7", size: 40).offset(x: 8, y: -6)
                 }
+                .shadow(color: .black.opacity(0.15), radius: 20, y: 10)
+                .offset(x: -600, y: 300)
             }
-            .padding(10)
-            .background(.white.opacity(0.75), in: .rect(cornerRadius: 22, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).strokeBorder(.black.opacity(0.06)))
-            .shadow(color: .black.opacity(0.12), radius: 18, y: 6)
-            .offset(x: 80, y: 760)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, 56)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Palette.page)
         .clipped()
     }
 }

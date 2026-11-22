@@ -20,7 +20,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/hero.jpg" alt="Pairfoil's window, menu bar popover and Dock icon on a Mac" />
+  <img src="docs/images/hero.png" alt="Pairfoil's window, menu bar popover and badged app icon" />
 </p>
 
 Pairfoil is a native macOS app for **KDE Connect**, the free Android app. Pair your phone once, and it shows in the menu bar whenever it's near your Mac. It's written in Swift and SwiftUI, with no Qt, Electron or third-party libraries.
@@ -40,8 +40,10 @@ Pairfoil started as bug fixes for Tether and grew into a redesign. That's more t
 | Permissions | One page shows what macOS allows, with the button that turns it on |
 | Reliability | Fixes for crashes, a freeze, and drives left mounted after a force quit |
 
+## Features
+
 <p align="center">
-  <img src="docs/images/features.jpg" alt="Pairfoil's features: Messages, the menu bar count, notifications, the Dock badge, the phone in Finder, size, privacy and the KDE Connect plugins it supports" />
+  <img src="docs/images/features.png" alt="Pairfoil's features: Messages, the menu bar count, notifications, the Dock badge, the phone in Finder, size, privacy and the KDE Connect plugins it supports" />
 </p>
 
 ## Install

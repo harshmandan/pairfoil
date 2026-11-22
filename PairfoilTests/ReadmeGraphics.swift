@@ -39,7 +39,7 @@ import ScreenCaptureKit
             finder: ProcessInfo.processInfo.environment["PAIRFOIL_README_FINDER"].flatMap { NSImage(contentsOfFile: $0) }
         )
 
-        try write(Hero(shots: shots), size: CGSize(width: 1600, height: 1000), to: dir.appendingPathComponent("hero.png"))
+        try write(Hero(shots: shots), size: CGSize(width: 1600, height: 1100), to: dir.appendingPathComponent("hero.png"))
         try write(Features(shots: shots), size: CGSize(width: 1600, height: 2440), to: dir.appendingPathComponent("features.png"))
     }
 
@@ -219,6 +219,12 @@ private struct Hero: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 14) {
+                ZStack(alignment: .topTrailing) {
+                    AppIcon(size: 108)
+                    Badge(text: "7", size: 34).offset(x: 6, y: -4)
+                }
+                .shadow(color: .black.opacity(0.12), radius: 16, y: 8)
+                .padding(.bottom, 10)
                 Text("Your Android phone. On your Mac.")
                     .font(.system(size: 60, weight: .bold))
                     .tracking(-1.2)
@@ -228,10 +234,10 @@ private struct Hero: View {
                     .foregroundStyle(Palette.secondary)
             }
             .multilineTextAlignment(.center)
-            .padding(.top, 72)
+            .padding(.top, 56)
 
-            // The window in the middle, with the menu bar popover and the
-            // badged app icon resting on its edges.
+            // The window in the middle, with the menu bar popover resting on
+            // its edge.
             ZStack {
                 Screenshot(image: shots.overview, radius: 14)
                     .frame(width: 1000)
@@ -239,12 +245,6 @@ private struct Hero: View {
                 Screenshot(image: shots.popover, radius: 16)
                     .frame(width: 290)
                     .offset(x: 540, y: 10)
-                ZStack(alignment: .topTrailing) {
-                    AppIcon(size: 124)
-                    Badge(text: "7", size: 40).offset(x: 8, y: -6)
-                }
-                .shadow(color: .black.opacity(0.15), radius: 20, y: 10)
-                .offset(x: -600, y: 300)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding(.top, 56)

@@ -1,15 +1,15 @@
 {
   "version": "1.9.1",
   "tag": "v1.9.1",
-  "notes": "### 📡 Finds your phone faster\n- Tether now also finds your phone through Bonjour, which works on office and campus Wi-Fi that blocks KDE Connect's usual broadcasts. When your phone drops off Wi-Fi and comes back, it reconnects on its own within seconds instead of waiting up to 45. By @zzjjaayy (#7)\n- On Macs with corporate security software, discovery could freeze at launch, so a phone that dropped off Wi-Fi was never found again until Tether restarted. Fixed by @zzjjaayy (#6)\n- macOS may ask once whether Tether can find devices on your local network. Allow it so Bonjour discovery works.\n\n### 📁 Phone drive\n- Fixed \"server not responding\" prompts asking you to disconnect when your phone went out of range or to sleep while its drive was open.\n\n### 🔒 Pairing\n- Accepting a pairing request now only ever pairs the device you were shown, even if another request arrives while the prompt is open. By @youp211 (#9)\n\nThank you @zzjjaayy and @youp211!",
+  "notes": "### 📡 Finds your phone faster\n- Pairfoil now also finds your phone through Bonjour, which works on office and campus Wi-Fi that blocks KDE Connect's usual broadcasts. When your phone drops off Wi-Fi and comes back, it reconnects on its own within seconds instead of waiting up to 45. By @zzjjaayy (#7)\n- On Macs with corporate security software, discovery could freeze at launch, so a phone that dropped off Wi-Fi was never found again until Pairfoil restarted. Fixed by @zzjjaayy (#6)\n- macOS may ask once whether Pairfoil can find devices on your local network. Allow it so Bonjour discovery works.\n\n### 📁 Phone drive\n- Fixed \"server not responding\" prompts asking you to disconnect when your phone went out of range or to sleep while its drive was open.\n\n### 🔒 Pairing\n- Accepting a pairing request now only ever pairs the device you were shown, even if another request arrives while the prompt is open. By @youp211 (#9)\n\nThank you @zzjjaayy and @youp211!",
   "archives": {
     "AppleSilicon": {
-      "name": "Tether-1.9.1-AppleSilicon.zip",
+      "name": "Pairfoil-1.9.1-AppleSilicon.zip",
       "size": 2450029,
       "sha256": "37bc420be0c78b9f1cd4c087797eea9a1ef98b9c379280e45e967909ef90dac8"
     },
     "Intel": {
-      "name": "Tether-1.9.1-Intel.zip",
+      "name": "Pairfoil-1.9.1-Intel.zip",
       "size": 2588667,
       "sha256": "c7e26f2804ccd9ad9f84befc774df3f63fcdd4e8f3366a895a4f9c61b3b3cf2c"
     }

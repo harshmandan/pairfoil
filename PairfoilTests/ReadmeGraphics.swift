@@ -26,8 +26,6 @@ import ScreenCaptureKit
         let dir = URL(fileURLWithPath: Self.outputDirectory!)
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
 
-        Permissions.shared.showForDemo(notifications: .allowed, accessibility: .off, localNetwork: .allowed)
-
         let shots = Shots(
             overview: try await capture(MainWindowView(appModel: .mock(), initialSection: .overview),
                                         size: CGSize(width: 1040, height: 660)),
@@ -36,11 +34,13 @@ import ScreenCaptureKit
             notifications: try await capture(MainWindowView(appModel: .mock(), initialSection: .notifications),
                                              size: CGSize(width: 1040, height: 660)),
             popover: try await capture(MenuBarView(appModel: .mock()).fixedSize(), size: nil, titled: false),
-            permissions: try await capture(PermissionsSettings(viewModel: .mock()), size: CGSize(width: 560, height: 470))
+            // A real Finder window on the mounted phone, captured outside the
+            // test: PAIRFOIL_README_FINDER is its PNG.
+            finder: ProcessInfo.processInfo.environment["PAIRFOIL_README_FINDER"].flatMap { NSImage(contentsOfFile: $0) }
         )
 
         try write(Hero(shots: shots), size: CGSize(width: 1600, height: 900), to: dir.appendingPathComponent("hero.jpg"))
-        try write(Features(shots: shots), size: CGSize(width: 1600, height: 1900), to: dir.appendingPathComponent("features.jpg"))
+        try write(Features(shots: shots), size: CGSize(width: 1600, height: 2440), to: dir.appendingPathComponent("features.jpg"))
     }
 
     // MARK: - Capturing
@@ -120,7 +120,7 @@ private struct Shots {
     let messages: NSImage
     let notifications: NSImage
     let popover: NSImage
-    let permissions: NSImage
+    let finder: NSImage?
 }
 
 private enum Palette {
@@ -277,6 +277,27 @@ private struct Features: View {
     let shots: Shots
     private let gap: CGFloat = 20
 
+    /// The KDE Connect plugins Pairfoil handles, one per plugin class.
+    static let plugins: [(name: String, symbol: String)] = [
+        ("Notifications", "bell.badge"),
+        ("SMS", "message"),
+        ("Telephony", "phone"),
+        ("Contacts", "person.crop.circle"),
+        ("Share and receive", "square.and.arrow.up"),
+        ("Filesystem", "folder"),
+        ("Clipboard", "doc.on.clipboard"),
+        ("Media controls", "playpause"),
+        ("System volume", "speaker.wave.2"),
+        ("Remote input", "cursorarrow.motionlines"),
+        ("Presentation", "play.rectangle"),
+        ("Run command", "terminal"),
+        ("Battery", "battery.75percent"),
+        ("Connectivity", "antenna.radiowaves.left.and.right"),
+        ("Find my phone", "speaker.wave.3"),
+        ("Lock", "lock"),
+        ("Ping", "wave.3.right"),
+    ]
+
     var body: some View {
         VStack(alignment: .leading, spacing: gap) {
             Text("Everything on your phone,\nright where you work.")
@@ -331,18 +352,9 @@ private struct Features: View {
             .frame(height: 560)
 
             HStack(spacing: gap) {
-                Tile(eyebrow: "Permissions", title: "Every permission in one place.") {
-                    Screenshot(image: shots.permissions)
-                }
                 Tile(eyebrow: "Files", title: "Your phone in Finder. Videos start right away.") {
-                    VStack(spacing: 14) {
-                        Image(systemName: "externaldrive.fill.badge.wifi")
-                            .font(.system(size: 92, weight: .light))
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundStyle(Palette.ink)
-                        Text("Drop files on the window to send them.")
-                            .font(.system(size: 17))
-                            .foregroundStyle(Palette.secondary)
+                    if let finder = shots.finder {
+                        Screenshot(image: finder)
                     }
                 }
                 VStack(spacing: gap) {
@@ -359,8 +371,32 @@ private struct Features: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
                 }
+                .frame(width: 460)
             }
-            .frame(height: 480)
+            .frame(height: 560)
+
+            Tile(eyebrow: "Plugins", title: "Speaks the KDE Connect plugins you use every day.") {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: 6), spacing: 14) {
+                    ForEach(Self.plugins, id: \.name) { plugin in
+                        HStack(spacing: 12) {
+                            Image(systemName: plugin.symbol)
+                                .font(.system(size: 22, weight: .medium))
+                                .frame(width: 30)
+                            Text(plugin.name)
+                                .font(.system(size: 17, weight: .medium))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                            Spacer(minLength: 0)
+                        }
+                        .foregroundStyle(Palette.ink)
+                        .padding(.horizontal, 16)
+                        .frame(height: 60)
+                        .background(Palette.page, in: .rect(cornerRadius: 14, style: .continuous))
+                    }
+                }
+                .frame(maxHeight: .infinity, alignment: .top)
+            }
+            .frame(height: 380)
         }
         .padding(60)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

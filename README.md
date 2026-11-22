@@ -41,7 +41,7 @@ Pairfoil started as bug fixes for Tether and grew into a redesign. That's more t
 | Reliability | Fixes for crashes, a freeze, and drives left mounted after a force quit |
 
 <p align="center">
-  <img src="docs/images/features.jpg" alt="Pairfoil's features: Messages, menu bar count, notifications, Dock badge, permissions, phone drive, size and privacy" />
+  <img src="docs/images/features.jpg" alt="Pairfoil's features: Messages, the menu bar count, notifications, the Dock badge, the phone in Finder, size, privacy and the KDE Connect plugins it supports" />
 </p>
 
 ## Install
